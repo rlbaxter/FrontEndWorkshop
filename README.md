@@ -1,3 +1,3 @@
-#Front End Workshop User Folder
+#Front End Workshop
 
-This folder is for Scott.
+A place to stash ur code.
