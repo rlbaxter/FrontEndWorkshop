@@ -1,5 +1,16 @@
+@font-face {
+    font-family: "Christensen Caps";
+    src: url(ChristensenCaps.ttf);
+}
+@font-face {
+    font-family: "Aniron";
+    src: url(Anirb.ttf);
+}
+body {
+    font: 12px "Aniron";
+}
 .nav {
-    font: 14px arial;
+    font: 14px "Aniron", arial;
     border-bottom: solid 2px #cccccc;
     background-color:#262626;    
 }
@@ -39,11 +50,12 @@
     color: #ff751a;
     text-decoration: none;
     display: block;
-    background-color: #4d4d4d;
+    background-color: #000a1a;
+    transition: all .4s;
 }
 .main-header {
     text-align: center;
-    color: white ;
+    color: #ff751a ;
     background-color: #262626 ;
 }
 .nav > .about-menu {
@@ -58,11 +70,44 @@
     text-decoration: none;
     display: block;
 }
-
-/*.main-header li a:hover:not(.active) {
-    background-color: #111;
-}*/
 .nav > li > a.active {
-    background-color: #0066ff;
-   /* border-right: 40px;*/
+    background-color: #4d4d4d;
+    color: white;
+}
+.nav > li > a.active:hover {
+    background-color: #4d4d4d;
+    color: #ff751a;
+}
+body {
+    background-color: #f2f2f2;
+}
+
+/*.previous-nav-menu li {
+    float: left;
+}
+.previous-nav-menu a {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    overflow: hidden;
+}
+ul.previous-nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+}
+*/
+.page-title {
+    text-align: center;
+    margin: 8px;
+}
+p {
+    text-indent: 50px;
+}
+p.first-paragraph::first-letter {
+    font-weight:bold;
+    font: 100px "Christensen Caps";
 }
