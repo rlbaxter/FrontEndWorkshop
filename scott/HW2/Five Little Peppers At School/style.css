@@ -1,3 +1,13 @@
 .chapters li{
 	list-style: none;
+	display: block;
+
+}
+
+h2.chapter-name {
+	font-style: italic;
+}
+
+img.cover-image {
+	height: 400px;
 }
