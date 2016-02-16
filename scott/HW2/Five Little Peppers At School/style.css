@@ -3,15 +3,20 @@ body {
 	background: lightblue;
 }
 
+body.index {
+		text-align: center;
+}
+
 h1.book-title {
 	display: inline-block;
-	text-align: justify;
 }
 
 .chapters li{
 	list-style: none;
+	text-align: center;
 	display: block;
-
+	margin: 0;
+	padding: 0;
 }
 
 h2.chapter-name {
@@ -19,7 +24,8 @@ h2.chapter-name {
 }
 
 img.cover-image {
-	padding-right: 10px;
+	display: inline-block;
+	float: none;
 }
 
 img.cover-image, .insert-image {
