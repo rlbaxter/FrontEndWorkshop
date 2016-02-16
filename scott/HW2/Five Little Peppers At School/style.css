@@ -1,3 +1,13 @@
+body {
+	font-family: "Times New Roman", Times, serif;
+	background: lightblue;
+}
+
+h1.book-title {
+	display: inline-block;
+	text-align: justify;
+}
+
 .chapters li{
 	list-style: none;
 	display: block;
@@ -9,5 +19,9 @@ h2.chapter-name {
 }
 
 img.cover-image {
+	padding-right: 10px;
+}
+
+img.cover-image, .insert-image {
 	height: 400px;
 }
