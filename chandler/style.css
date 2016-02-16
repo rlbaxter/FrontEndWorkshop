@@ -3,6 +3,10 @@
     src: url(ChristensenCaps.ttf);
 }
 @font-face {
+    font-family: "Bookerly";
+    src: url(Bookerly-Bold.ttf);
+}
+@font-face {
     font-family: "Aniron";
     src: url(Anirb.ttf);
 }
@@ -27,8 +31,6 @@ body {
 }
 .nav > li {
     float: left;
-  /*  border:solid 1px black;*/
- /*   padding-bottom: 5px;*/
     position:relative;
 }
 .nav ul {
@@ -85,32 +87,15 @@ body {
     background-color: #f2f2f2;
 }
 
-/*.previous-nav-menu li {
-    float: left;
-}
-.previous-nav-menu a {
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    overflow: hidden;
-}
-ul.previous-nav-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    top: 0;
-    width: 100%;
-}
-*/
 .page-title {
     text-align: center;
     margin: 8px;
     display: block;
-    text-indent: 50px;
 }
 p {
     text-indent: 50px;
+    font-family: "Bookerly", caecelia;
+    font-size: 18px;
 }
 p.first-paragraph::first-letter {
     font-weight:bold;
@@ -120,9 +105,19 @@ p.first-paragraph::first-letter {
     text-align: center;
     display: block;
 }
-.titlepageimage {
-    display:block;
+img.titlepageimage {
+    display: block;
     text-align: center;
-    height: 300px;
-    width:125px;
+    margin: 0 auto;
+    height: 400px;
+    width:245px;
+    text-indent: 50px;
+}
+ul, li {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+p.titlepage {
+    text-indent: 0;
 }
