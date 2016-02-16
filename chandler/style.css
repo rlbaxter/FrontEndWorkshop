@@ -11,7 +11,7 @@ body {
 }
 .nav {
     font: 14px "Aniron", arial;
-    border-bottom: solid 2px #cccccc;
+ /*   border-bottom: solid 2px #cccccc;*/
     background-color:#262626;    
 }
 .nav:after {
@@ -27,15 +27,18 @@ body {
 }
 .nav > li {
     float: left;
-    border:solid 1px black;
-    padding-bottom: 5px;
+  /*  border:solid 1px black;*/
+ /*   padding-bottom: 5px;*/
+    position:relative;
 }
 .nav ul {
     position: absolute;
     left: -999em;
     background-color: #262626;
     border: solid 1px  white;
-    width:160px;
+    border-top: none;
+    width:100%;
+    top: 100%;
 }
 .nav li:hover ul {
     left: auto;
@@ -103,6 +106,8 @@ ul.previous-nav-menu {
 .page-title {
     text-align: center;
     margin: 8px;
+    display: block;
+    text-indent: 50px;
 }
 p {
     text-indent: 50px;
@@ -110,4 +115,14 @@ p {
 p.first-paragraph::first-letter {
     font-weight:bold;
     font: 100px "Christensen Caps";
+}
+.titlepage {
+    text-align: center;
+    display: block;
+}
+.titlepageimage {
+    display:block;
+    text-align: center;
+    height: 300px;
+    width:125px;
 }
