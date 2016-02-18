@@ -96,6 +96,7 @@ p {
     text-indent: 50px;
     font-family: "Bookerly", caecelia;
     font-size: 18px;
+
 }
 p.first-paragraph::first-letter {
     font-weight:bold;
@@ -121,3 +122,21 @@ ul, li {
 p.titlepage {
     text-indent: 0;
 }
+p.signature {
+    text-align: right;
+}
+p.text-break {
+    text-align: center;
+}
+.fadeIn {
+        opacity:0;
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+}
+.fadeIn-3s {
+        animation-duration:.75s;
+}
+.fadeIn-Delay-3s {
+        animation-delay:.25s;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
