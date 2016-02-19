@@ -34,3 +34,12 @@ img.cover-image {
 img.cover-image, .insert-image {
 	height: 400px;
 }
+
+nav {
+        font-family: "Trebuchet MS", Arial, Helvetica,  Lucida, sans-serif;
+        text-indent: 0; font-size: 80%; text-align: center;
+        margin-top: 0; margin-bottom: 0;}
+
+nav a {
+	padding: 5px;
+}
