@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>svg test</title>
+	<style>
+		html {
+			font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			line-height: 1.8;
+			color: #555;
+			margin: 0;
+			padding: 0;
+		}
+		.ring-chart {
+			width: 20%;
+			float: left;
+		}
+		.ring-chart-wrapper {
+			position: relative;
+			padding-bottom: 100%;
+			height: 0;
+		}
+		.ring-chart .ring-chart-wrapper .label {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+		    justify-content:center;
+		    align-content:center;
+		    flex-direction:column;
+		    text-align: center;
+		}
+
+		.ring-chart .ring-chart-wrapper .label label {
+			font-size: 30px;
+			font-weight: bold;
+			color: #ff8200;
+		}
+		.ring-chart .ring-chart-wrapper .label label span {
+			display: block;
+		}
+
+		.ring-chart .ring-chart-wrapper .label label span + span {
+			color: #00b5e2;
+			font-size: 15px;
+			line-height: 0;
+		}
+
+		.ring-chart svg {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			transform: rotate(-270deg);
+		}
+
+		.ring-chart svg .main-ring {
+			stroke: #ff8200;
+			fill: none;
+			transition: 1s stroke-dashoffset;
+		}
+
+		.ring-chart svg .main-ring.inner {
+			stroke: #00b5e2;
+		}
+
+		.ring-chart svg .background-ring {
+			stroke: #f1f1f1;
+			/*stroke: none;*/
+			fill: none;
+		}
+
+		.ring-chart svg .background-ring.inner {
+			stroke: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div class="ring-chart" data-percent="25" data-label="1/4"></div>
+	<div class="ring-chart" data-percent="77" data-label="77%"></div>
+	<div class="ring-chart" data-percent="75" data-inner-percent="50" data-label="<span>150</span><span>120</span>"></div>
+	<div class="ring-chart" data-percent="62" data-inner-percent="19" data-label="<span>62%</span><span>19%</span>"></div>
+	<div class="ring-chart" data-percent="11" data-label="11"></div>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script>
+    	$(document).on( 'ready', function() {
+    		ringCharts.init();
+    	});
+
+		var ringCharts = {
+			init: function() {
+				var self = this;
+				$('.ring-chart').each( function() {
+	    			var $el     = $(this);
+	    			var ringSize      = parseFloat($el.data('ring-size') || 200);
+	    			var strokeSize    = parseFloat($el.data('stroke-size') || 16);
+	    			var percent       = parseFloat($el.data('percent') || 0);
+	    			var innerPercent  = parseFloat($el.data('inner-percent'));
+	    			var label         = $el.data('label');
+	    			var radius        = ((ringSize / 2) - (strokeSize / 2));
+	    			var rings         = '';
+
+	    			if (!isNaN(innerPercent)) {
+		    			var innerRadius = (radius - strokeSize);
+		    			var bgInnerRing = self.buildRing({
+		    				'class':       'background-ring inner',
+		    				'r':            radius - strokeSize,
+		    				'stroke-width': strokeSize
+		    			});
+
+						var mainInnerRing = self.buildRing({
+		    				'class':             'main-ring inner',
+							'r':                 innerRadius,
+							'stroke-width':      strokeSize,
+							'stroke-dasharray':  self.getCircumference(innerRadius),
+							'stroke-dashoffset': self.getCircumference(innerRadius)
+						});
+						rings = bgInnerRing + mainInnerRing;
+	    			}
+
+
+	    			var bgRing = self.buildRing({
+	    				'class':        'background-ring',
+	    				'r':            radius,
+	    				'stroke-width': strokeSize
+	    			});
+
+
+	    			var mainRing = self.buildRing({
+	    				'class':             'main-ring',
+						'r':                 radius,
+						'stroke-width':      strokeSize,
+						'stroke-dasharray':  self.getCircumference(radius),
+						'stroke-dashoffset': self.getCircumference(radius)
+					});
+
+					rings += bgRing + mainRing;
+
+
+	    			var viewBox  = [(ringSize / -2), (ringSize / -2), ringSize, ringSize];
+	    			var svg      = '<svg viewBox="' + viewBox.join(' ') + '">' + rings + '</svg>';
+	    			var label    = '<div class="label"><label>' + label + '</label></div>';
+	    			var $wrapper = $('<div class="ring-chart-wrapper"></div>');
+
+	    			$wrapper.append(label).append(svg);
+
+	    			$el.find('.ring-chart-wrapper').remove();
+	    			$el.append($wrapper);
+	    			setTimeout(function(){
+		    			$el.find( '.main-ring:not(.inner)' ).attr( 'stroke-dashoffset', self.getDashOffset( radius, percent ) );
+		    			$el.find( '.main-ring.inner' ).attr( 'stroke-dashoffset', self.getDashOffset( innerRadius, innerPercent ) );
+		    		}, 10);
+	    		});
+			},
+
+			getCircumference: function( radius ) {
+				return Math.round(2 * Math.PI * radius);
+			},
+
+			getDashOffset: function( radius, percent ) {
+				return Math.round(this.getCircumference(radius) * ((100 - percent) / 100));
+			},
+
+			buildRing: function( attrs ) {
+				var ring = '<circle cx="0" cy="0"';
+				for (var attr in attrs) {
+				    if (!attrs.hasOwnProperty(attr)) continue;
+				    ring += attr + '="' + attrs[attr] + '" ';
+				}
+				ring += '></circle>';
+				return ring;
+			}
+		};
+
+    </script>
+</body>
+</html>
