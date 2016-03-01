@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+		header {
+			background: palegreen;
+		}
+		.main {
+			background: palegoldenrod;
+		}
+		.main::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		nav,
+		section,
+		.ads {
+			padding: 15px;
+			box-sizing: border-box;
+		}
+
+		nav {
+			background: firebrick;
+
+		}
+		section {
+			background: yellow;
+		}
+
+		.ads {
+			background: orange;
+		}
+
+		footer {
+			background: salmon;
+		}
+
+		@media (min-width:630px) {
+			.main {
+				display: flex;
+			}
+
+			nav,
+			.ads {
+				flex: 1;
+			}
+
+			nav {
+				order: 1;
+			}
+
+			.ads {
+				order: 3;
+			}
+
+			section {
+				flex: 3;
+				order: 2;
+			}
+		}
+	</style>
+	<title>Layout</title>
+</head>
+<body>
+	<header>
+		<h1>Welcome to my Page</h1>
+	</header>
+	<div class="main">
+		<section>
+			<h2>Welcome</h2>
+			<p>This is some text</p>
+		</section>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About Me</a></li>
+				<li><a href="#">My Work</a></li>
+				<li><a href="#">Favorite Places</a></li>
+				<li><a href="#">Favorite Music</a></li>
+			</ul>
+		</nav>
+		<aside class="ads">
+			<p>Buy a thing!</p>
+		</aside>
+	</div>
+	<footer>
+		<p>&copy;Copyright 2016</p>
+	</footer>
+</body>
+</html>
