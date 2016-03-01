@@ -87,74 +87,100 @@
 
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script>
-    	$(document).on( 'ready', function() {
-    		ringCharts.init();
-    	});
+		$(document).on( 'ready', function() {
+			ringCharts.init();
+		});
 
 		var ringCharts = {
+			defaults: {
+				ringSize:   200,
+				strokeSize: 16,
+				percent:    0
+			},
+
 			init: function() {
 				var self = this;
-				$('.ring-chart').each( function() {
-	    			var $el     = $(this);
-	    			var ringSize      = parseFloat($el.data('ring-size') || 200);
-	    			var strokeSize    = parseFloat($el.data('stroke-size') || 16);
-	    			var percent       = parseFloat($el.data('percent') || 0);
-	    			var innerPercent  = parseFloat($el.data('inner-percent'));
-	    			var label         = $el.data('label');
-	    			var radius        = ((ringSize / 2) - (strokeSize / 2));
-	    			var rings         = '';
+				$( '.ring-chart' ).each( function() {
+					var $el     = $( this );
+					var metrics = self.getRingMetrics( $el );
+					var rings   = '';
 
-	    			if (!isNaN(innerPercent)) {
-		    			var innerRadius = (radius - strokeSize);
-		    			var bgInnerRing = self.buildRing({
-		    				'class':       'background-ring inner',
-		    				'r':            radius - strokeSize,
-		    				'stroke-width': strokeSize
-		    			});
+					if ( metrics.innerPercent ) {
+						var bgInnerRing = self.buildRing({
+							'class':       'background-ring inner',
+							'r':            metrics.radius - metrics.strokeSize,
+							'stroke-width': metrics.strokeSize
+						});
 
 						var mainInnerRing = self.buildRing({
-		    				'class':             'main-ring inner',
-							'r':                 innerRadius,
-							'stroke-width':      strokeSize,
-							'stroke-dasharray':  self.getCircumference(innerRadius),
-							'stroke-dashoffset': self.getCircumference(innerRadius)
+							'class':             'main-ring inner',
+							'r':                 metrics.innerRadius,
+							'stroke-width':      metrics.strokeSize,
+							'stroke-dasharray':  metrics.innerCircumference,
+							'stroke-dashoffset': metrics.innerCircumference
 						});
+
 						rings = bgInnerRing + mainInnerRing;
-	    			}
+					}
 
 
-	    			var bgRing = self.buildRing({
-	    				'class':        'background-ring',
-	    				'r':            radius,
-	    				'stroke-width': strokeSize
-	    			});
+					var bgRing = self.buildRing({
+						'class':        'background-ring',
+						'r':            metrics.radius,
+						'stroke-width': metrics.strokeSize
+					});
 
 
-	    			var mainRing = self.buildRing({
-	    				'class':             'main-ring',
-						'r':                 radius,
-						'stroke-width':      strokeSize,
-						'stroke-dasharray':  self.getCircumference(radius),
-						'stroke-dashoffset': self.getCircumference(radius)
+					var mainRing = self.buildRing({
+						'class':             'main-ring',
+						'r':                 metrics.radius,
+						'stroke-width':      metrics.strokeSize,
+						'stroke-dasharray':  metrics.circumference,
+						'stroke-dashoffset': metrics.circumference
 					});
 
 					rings += bgRing + mainRing;
 
 
-	    			var viewBox  = [(ringSize / -2), (ringSize / -2), ringSize, ringSize];
-	    			var svg      = '<svg viewBox="' + viewBox.join(' ') + '">' + rings + '</svg>';
-	    			var label    = '<div class="label"><label>' + label + '</label></div>';
-	    			var $wrapper = $('<div class="ring-chart-wrapper"></div>');
+					var viewBox  = [(metrics.ringSize / -2), (metrics.ringSize / -2), metrics.ringSize, metrics.ringSize];
+					var svg      = '<svg viewBox="' + viewBox.join( ' ' ) + '">' + rings + '</svg>';
+					var label    = '<div class="label"><label>' + metrics.label + '</label></div>';
+					var $wrapper = $( '<div class="ring-chart-wrapper"></div>' );
 
-	    			$wrapper.append(label).append(svg);
+					$wrapper.append(label).append(svg);
+					$el.find('.ring-chart-wrapper').remove();
+					$el.append($wrapper);
 
-	    			$el.find('.ring-chart-wrapper').remove();
-	    			$el.append($wrapper);
-	    			setTimeout(function(){
-		    			$el.find( '.main-ring:not(.inner)' ).attr( 'stroke-dashoffset', self.getDashOffset( radius, percent ) );
-		    			$el.find( '.main-ring.inner' ).attr( 'stroke-dashoffset', self.getDashOffset( innerRadius, innerPercent ) );
-		    		}, 10);
-	    		});
+					setTimeout(function(){
+						$el.trigger( 'change' )
+					}, 10);
+				});
+				$( '.ring-chart' ).off( 'change' ).on( 'change', function() {
+					self.update( $( this ));
+				});
+			},
+
+			getRingMetrics: function( $el ) {
+				var self = this;
+				var innerPercent  = parseFloat( $el.data( 'inner-percent' ));
+				var metrics = {
+					ringSize:   parseFloat( $el.data('ring-size')   || self.defaults.ringSize ),
+					strokeSize: parseFloat( $el.data('stroke-size') || self.defaults.strokeSize ),
+					percent:    parseFloat( $el.data('percent')     || self.defaults.percent ),
+					label:      $el.data( 'label' )
+				};
+
+				metrics.radius        = ((metrics.ringSize / 2) - (metrics.strokeSize / 2));
+				metrics.circumference = self.getCircumference( metrics.radius );
+
+
+				if ( !isNaN( innerPercent )) {
+					metrics.innerPercent       = innerPercent;
+					metrics.innerRadius        = (metrics.radius - metrics.strokeSize);
+					metrics.innerCircumference = self.getCircumference( metrics.innerRadius )
+				}
+
+				return metrics;
 			},
 
 			getCircumference: function( radius ) {
@@ -167,15 +193,24 @@
 
 			buildRing: function( attrs ) {
 				var ring = '<circle cx="0" cy="0"';
-				for (var attr in attrs) {
-				    if (!attrs.hasOwnProperty(attr)) continue;
+				for ( var attr in attrs ) {
+				    if ( !attrs.hasOwnProperty( attr )) continue;
 				    ring += attr + '="' + attrs[attr] + '" ';
 				}
 				ring += '></circle>';
 				return ring;
+			},
+
+			update: function( $el ) {
+				var self    = this;
+				var metrics = self.getRingMetrics( $el );
+
+				$el.find( '.main-ring:not(.inner)' ).attr( 'stroke-dashoffset', self.getDashOffset( metrics.radius, metrics.percent ));
+				if ( metrics.innerPercent ) {
+					$el.find( '.main-ring.inner' ).attr( 'stroke-dashoffset', self.getDashOffset( metrics.innerRadius, metrics.innerPercent ));
+				}
 			}
 		};
-
     </script>
 </body>
 </html>
