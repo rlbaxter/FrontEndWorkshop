@@ -1,0 +1,35 @@
+h1 {
+	color: peru;
+}
+
+nav a{
+	color: black;
+}
+
+.home .home,
+.about .about,
+.contact .contact {
+	background: gray;
+}
+
+nav ul,
+nav li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+}
+
+nav li {
+	display: inline;
+}
+
+nav a {
+	padding: 5px 20px;
+	text-decoration: none;
+	border: 1.5px solid black;
+}
+
+nav a:hover {
+	background: silver;
+}
