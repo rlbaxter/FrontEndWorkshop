@@ -3,6 +3,10 @@
     src: url(ChristensenCaps.ttf);
 }
 @font-face {
+    font-family: "Bookerly";
+    src: url(Bookerly-Bold.ttf);
+}
+@font-face {
     font-family: "Aniron";
     src: url(Anirb.ttf);
 }
@@ -11,7 +15,7 @@ body {
 }
 .nav {
     font: 14px "Aniron", arial;
-    border-bottom: solid 2px #cccccc;
+ /*   border-bottom: solid 2px #cccccc;*/
     background-color:#262626;    
 }
 .nav:after {
@@ -27,15 +31,17 @@ body {
 }
 .nav > li {
     float: left;
-    border:solid 1px black;
-    padding-bottom: 5px;
+    position:relative;
 }
 .nav ul {
     position: absolute;
     left: -999em;
     background-color: #262626;
     border: solid 1px  white;
-    width:160px;
+    border-top: none;
+    width:100%;
+    top: 100%;
+    z-index: 10;
 }
 .nav li:hover ul {
     left: auto;
@@ -82,32 +88,80 @@ body {
     background-color: #f2f2f2;
 }
 
-/*.previous-nav-menu li {
-    float: left;
-}
-.previous-nav-menu a {
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    overflow: hidden;
-}
-ul.previous-nav-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    top: 0;
-    width: 100%;
-}
-*/
 .page-title {
     text-align: center;
     margin: 8px;
+    display: block;
 }
 p {
     text-indent: 50px;
+    font-family: "Bookerly", caecelia;
+    font-size: 18px;
+
 }
 p.first-paragraph::first-letter {
     font-weight:bold;
     font: 100px "Christensen Caps";
+}
+.titlepage {
+    text-align: center;
+    display: block;
+}
+img.titlepageimage {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    height: 400px;
+    width:245px;
+    text-indent: 50px;
+}
+ul, li {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+p.titlepage {
+    text-indent: 0;
+}
+p.signature {
+    text-align: right;
+}
+p.text-break {
+    text-align: center;
+}
+.fadeIn {
+        opacity:0;
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+}
+.fadeIn-3s {
+        animation-duration:.75s;
+}
+.fadeIn-Delay-3s {
+        animation-delay:.25s;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.centeredelements {
+    text-align: center;
+    display:block;
+}
+.centeredelements li{
+    display:inline;
+}
+h1 {
+    text-align: center;
+}
+img.listimage {
+    width: 245px;
+    height: 400px;
+    transition: all .2s;
+    border:8px solid black;
+    margin: 15px;
+    transform: translateY(0px);
+}
+img.listimage:hover {
+    width:245px;
+    height:400px;
+    transform: translateY(20px);
+    transition: all .2s;
 }

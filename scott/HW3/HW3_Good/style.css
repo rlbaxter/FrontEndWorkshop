@@ -1,0 +1,8 @@
+body {
+	max-width: 800px;
+	margin:0 auto;
+	font: normal medium sans-serif;
+	line-height: 1.8;
+	letter-spacing: 0.2em;
+	color: #333333;
+}

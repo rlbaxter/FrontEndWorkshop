@@ -1,0 +1,25 @@
+main, aside {
+box-sizing: border-box;
+
+}
+
+main {
+display: block;
+width: 80%;
+padding: 20px;
+position: relative;
+left: 20%;
+
+}
+aside {
+display: block;
+width: 20%;
+height: 100%;
+position: fixed;
+left: 0;
+top: 0;
+background-color: #DDD;
+padding: 20px;
+
+
+}

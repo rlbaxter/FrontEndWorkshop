@@ -3,15 +3,23 @@ body {
 	background: lightblue;
 }
 
-h1.book-title {
-	display: inline-block;
-	text-align: justify;
+body.index {
+		text-align: center;
 }
 
+h1.book-title {
+	display: inline-block;
+}
+ul, li {
+	margin:0;
+	padding:0;
+}
 .chapters li{
 	list-style: none;
+	text-align: center;
 	display: block;
-
+	margin: 0;
+	padding: 0;
 }
 
 h2.chapter-name {
@@ -19,9 +27,19 @@ h2.chapter-name {
 }
 
 img.cover-image {
-	padding-right: 10px;
+	display: inline-block;
+	float: none;
 }
 
 img.cover-image, .insert-image {
 	height: 400px;
+}
+
+nav {
+        font-family: "Trebuchet MS", Arial, Helvetica,  Lucida, sans-serif;
+        text-indent: 0; font-size: 80%; text-align: center;
+        margin-top: 0; margin-bottom: 0;}
+
+nav a {
+	padding: 5px;
 }
