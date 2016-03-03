@@ -6,11 +6,26 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/269px-English_Pok%C3%A9mon_logo.svg.png" alt="Pokemon"></header>
+<header>
+	<div class="groupsort">
+		<select class="sort-options">
+		    <option value="Name">By Name</option>
+		    <option value="Id">By Id</option>
+		</select>
+		<select class="group-options">
+		    <option value="">No Grouping</option>
+		    <option value="Type1">Type 1</option>
+		    <option value="Type2">Type 2</option>
+		</select>
+	</div>
+	<div class="search">
+	    <input type="text" placeholder="search">
+	</div>
+</header>
 <div class="pokeclass">
 </div>
 <script id="poke-template" type="text/x-handlebars-template">
-        {{#each pokemongroups}} 
+        {{#each this}} 
         <div class="pokemon-group {{@key}}">
         	<h2>{{@key}}</h2>
         	{{#each this}}
