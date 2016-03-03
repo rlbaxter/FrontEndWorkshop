@@ -1,0 +1,33 @@
+.pokeclass {
+	background: skyblue;
+	margin:0 auto;
+
+}
+
+div.pokemon {
+height: 130px;
+width: 200px;
+text-align: center;
+box-sizing: border-box;
+display:flex;
+align-items: center;
+}
+
+div.pokemon-group {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 30px;
+}
+
+div.pokemon-group h2 {
+	width: 100%;
+	text-align: center;
+}
+
+.Bug {
+	background: forestgreen;
+}
+
+.Electric {
+	background: yellow;
+}
