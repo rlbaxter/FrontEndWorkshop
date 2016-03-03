@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><h1>Pokemon</h1></header>
+<header><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/269px-English_Pok%C3%A9mon_logo.svg.png" alt="Pokemon"></header>
 <div class="pokeclass">
 </div>
 <script id="poke-template" type="text/x-handlebars-template">
@@ -14,7 +14,16 @@
         <div class="pokemon-group {{@key}}">
         	<h2>{{@key}}</h2>
         	{{#each this}}
-	        	<div class="pokemon"><a href="http://pokemon.wikia.com/wiki/{{Name}}"><img src="http://randompokemon.com/sprites/animated/{{ID}}.gif" alt="poke{{ID}}" title="#{{ID}} Name: {{Name}} Type 2: {{Type2}} Generation: {{Generation}}"></a></div> 
+	        	<div class="pokemon">
+	        		<a href="http://pokemon.wikia.com/wiki/{{Name}}">
+	        			<div class="pokeimage"><img src="http://randompokemon.com/sprites/animated/{{ID}}.gif" alt="poke{{ID}}" title="#{{ID}} Name: {{Name}} Type 2: {{Type2}} Generation: {{Generation}}"></div>
+	        		<p>Name {{Name}}</p>
+        			<p>ID {{ID}}</p>
+        			<p>Type 1 {{Type1}}</p>
+        			<p>Type 2 {{Type2}}</p>
+        			</a>
+
+        		</div> 
 	        {{/each}}
 	    </div>
         {{/each}} 

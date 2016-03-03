@@ -5161,6 +5161,7 @@ data.pokemon = _.sortBy(data.pokemon, function(mon){
 data.pokemongroups = _.groupBy(data.pokemon, function(mon){
 	return mon.Type1;
 });
+
 // data.pokemon.reverse();
 $('.pokeclass').html(template(data));
 

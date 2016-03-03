@@ -1,16 +1,44 @@
+header{
+	background: slategray;
+}
+
+header img {
+	text-align: center;
+}
+
+
 .pokeclass {
 	background: skyblue;
 	margin:0 auto;
 
 }
 
+div.pokeimage {
+	height: 130px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+}
+
+
 div.pokemon {
-height: 130px;
 width: 200px;
-text-align: center;
 box-sizing: border-box;
-display:flex;
 align-items: center;
+background: beige;
+border: 2px solid black;
+padding: 8px;
+border-radius: 10px;
+}
+
+div.pokemon a {
+	display: block;
+}
+
+div.pokemon p {
+text-align: center;
+margin: 0
 }
 
 div.pokemon-group {
@@ -30,4 +58,16 @@ div.pokemon-group h2 {
 
 .Electric {
 	background: yellow;
+}
+
+.Dark {
+	background: black;
+}
+
+div.pokemon-group h2 {
+	color:white;
+}
+
+.Fighting {
+	background: indianred;
 }
