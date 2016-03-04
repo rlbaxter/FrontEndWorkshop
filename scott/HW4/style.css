@@ -9,8 +9,6 @@ header{
 	flex:1;
 }
 
-
-
 .pokeclass {
 	background: skyblue;
 	margin:0 auto;
@@ -18,7 +16,8 @@ header{
 }
 
 div.pokeimage {
-	height: 130px;
+/*	height: 130px;*/
+	height: 263px;
 	display: flex;
 	align-items: center;
 	text-align: center;
@@ -27,13 +26,15 @@ div.pokeimage {
 
 
 div.pokemon {
-width: 200px;
-box-sizing: border-box;
-align-items: center;
-background: beige;
-border: 2px solid black;
-padding: 8px;
-border-radius: 10px;
+	/*width: 200px;*/
+	width: 188px;
+	box-sizing: border-box;
+	align-items: center;
+	background: beige;
+	/*background: beige url("img/cardback.jpg") no-repeat;*/
+	border: 2px solid black;
+	padding: 8px;
+	border-radius: 10px;
 }
 
 div.pokemon a {
@@ -60,69 +61,70 @@ div.pokemon-group h2 {
 	background: forestgreen;
 }
 
+.Grass {
+	background: lawngreen;
+}
+
+.Fire {
+	background: firebrick;
+}
+
+.Water {
+	background: darkblue;
+}
+
 .Electric {
-	background: lightyellow;
+	background: yellow;
 }
 
 .Dark {
 	background: black;
 }
 
-div.pokemon-group h2 {
-	color:white;
+.Normal {
+	background: palegoldenrod;
+}
+
+.Poison {
+	background: rebeccapurple;
+}
+
+.Ground {
+	background: sandybrown;
 }
 
 .Fighting {
 	background: indianred;
 }
 
-/*#tfheader{
-		background-color:#c3dfef;
-	}*/
-	#tfnewsearch{
-		float:right;
-/*		padding:20px;*/
-	}
-	.tftextinput{
-		margin: 0;
-		padding: 5px 15px;
-		font-family: Arial, Helvetica, sans-serif;
-		font-size:14px;
-		border:1px solid #0076a3; border-right:0px;
-		border-top-left-radius: 5px 5px;
-		border-bottom-left-radius: 5px 5px;
-	}
-	.tfbutton {
-		margin: 0;
-		padding: 5px 15px;
-		font-family: Arial, Helvetica, sans-serif;
-		font-size:14px;
-		outline: none;
-		cursor: pointer;
-		text-align: center;
-		text-decoration: none;
-		color: #ffffff;
-		border: solid 1px #0076a3; border-right:0px;
-		background: #0095cd;
-		background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
-		background: -moz-linear-gradient(top,  #00adee,  #0078a5);
-		border-top-right-radius: 5px 5px;
-		border-bottom-right-radius: 5px 5px;
-	}
-	.tfbutton:hover {
-		text-decoration: none;
-		background: #007ead;
-		background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
-		background: -moz-linear-gradient(top,  #0095cc,  #00678e);
-	}
-	/* Fixes submit button height problem in Firefox */
-	.tfbutton::-moz-focus-inner {
-	  border: 0;
-	}
-	.tfclear{
-		clear:both;
-	}
+.Psychic {
+	background: fuchsia;
+}
 
-	div.groupsort {
-		
-	}
+.Rock {
+	background: grey;
+}
+
+.Ghost {
+	background: white;
+}
+
+.Dragon {
+	background: darkgoldenrod;
+}
+
+.Steel {
+	background: steelblue;
+}
+
+.None {
+	background: white;
+}
+
+div.pokemon-group h2 {
+	color:black;
+}
+
+div.pokemon-group.Dark h2 {
+	color:white;
+}

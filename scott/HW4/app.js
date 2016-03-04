@@ -11,6 +11,7 @@ init: function(){
 	this.template = Handlebars.compile(this.source);
 	this.sortmode = $(".sort-options").val();
 	this.groupmode = $(".group-options").val();
+	this.searchmode = $(".search-input").val();
 	this.render();
 	$(".sort-options").on("change",function(){
 		self.sortmode = this.value;
@@ -18,6 +19,10 @@ init: function(){
 	});
 	$(".group-options").on("change",function(){
 		self.groupmode = this.value;
+		self.render();
+	});
+	$(".search-input").on("onkeyup",function(){
+		self.searchmode = this.value;
 		self.render();
 	});
 },
@@ -37,12 +42,19 @@ init: function(){
 
 render: function(){
 	var self = this;
-	var pokemon = _.sortBy(this.data.pokemon, function(mon){
+	var pokemon = _.filter(this.data.pokemon, function(mon){
+		return mon == [self.searchmode];
+	});
+	
+	if (self.sortmode) {
+		pokemon = _.sortBy(this.data.pokemon, function(mon){
 		if (self.sortmode === "ID") {
 			return parseInt(mon.ID);
 		}
 		return mon[self.sortmode];
 	});
+	}
+
 
 	if (self.groupmode) {	
 		pokemon = _.groupBy(pokemon, function(mon){
@@ -51,8 +63,8 @@ render: function(){
 	} else {
 		pokemon = {
 			All: pokemon
-		}
-	}
+				}
+			}
 
 
 console.log(pokemon);
