@@ -9,6 +9,10 @@ header{
 	flex:1;
 }
 
+input.search-input {
+	width: 275px;
+}
+
 .pokeclass {
 	background: skyblue;
 	margin:0 auto;
@@ -31,7 +35,7 @@ div.pokemon {
 	box-sizing: border-box;
 	align-items: center;
 	background: beige;
-	/*background: beige url("img/cardback.jpg") no-repeat;*/
+/*	background: beige url("img/cardback.jpg") no-repeat;*/
 	border: 2px solid black;
 	padding: 8px;
 	border-radius: 10px;

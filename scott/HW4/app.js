@@ -11,7 +11,7 @@ init: function(){
 	this.template = Handlebars.compile(this.source);
 	this.sortmode = $(".sort-options").val();
 	this.groupmode = $(".group-options").val();
-	this.searchmode = $(".search-input").val();
+	this.searchterm = $(".search-input").val();
 	this.render();
 	$(".sort-options").on("change",function(){
 		self.sortmode = this.value;
@@ -21,33 +21,21 @@ init: function(){
 		self.groupmode = this.value;
 		self.render();
 	});
-	$(".search-input").on("onkeyup",function(){
-		self.searchmode = this.value;
+	$(".search-input").on("keyup",function(){
+		self.searchterm = this.value;
 		self.render();
 	});
 },
 
-
-
-// Handlebars.registerHelper('fullName', function(person) {
-//   return person.firstName + " " + person.lastName;
-// });
-
-// function searchmon() {
-// 	var x = document.getElementById("search").value;
-// data.pokemongroups = _.groupBy(data.pokemon, function(mon){
-// 	return mon.x;
-// });
-// };
-
 render: function(){
 	var self = this;
-	var pokemon = _.filter(this.data.pokemon, function(mon){
-		return mon == [self.searchmode];
+	var pokemon = _.select(this.data.pokemon, function(mon){
+/*		return mon.Name == self.searchterm;*/
+	return mon.Name.toLowerCase().indexOf(self.searchterm.toLowerCase()) !== -1 || mon.ID.indexOf(self.searchterm) !== -1 || mon.Type1.toLowerCase().indexOf(self.searchterm.toLowerCase()) !== -1 || mon.Type2.toLowerCase().indexOf(self.searchterm.toLowerCase()) !== -1;
 	});
 	
 	if (self.sortmode) {
-		pokemon = _.sortBy(this.data.pokemon, function(mon){
+		pokemon = _.sortBy(pokemon, function(mon){	
 		if (self.sortmode === "ID") {
 			return parseInt(mon.ID);
 		}
