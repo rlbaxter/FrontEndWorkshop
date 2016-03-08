@@ -23,7 +23,8 @@
 
 .wrapper > * {
   padding: 20px;
-  flex: 1 100%;
+  flex: none;
+  width: 100%;
 }
 
 .header {
@@ -39,25 +40,34 @@
   background: deepskyblue;
 }
 
-.aside-1 {
+.menu {
   background: gold;
-  text-align: center;
 }
 
-.aside-2 {
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.other {
   background: hotpink;
 }
 
-@media all and (min-width: 600px) {
-  .aside { flex: 1 auto; }
-}
+
+
 
 @media all and (min-width: 800px) {
-  .main    { flex: 3 0px; }
-  .aside-1 { order: 1; } 
-  .main    { order: 2; }
-  .aside-2 { order: 3; }
-  .footer  { order: 4; }
+  .header {
+    order: 1;
+  }
+  .main  { 
+    flex: 3; 
+    order: 3;
+  }
+  .menu { order: 2; flex: 1; } 
+  .other { order: 4; flex: 1; }
+  .footer  { order: 5; }
 }
 
 body {
@@ -78,15 +88,15 @@ body {
     <p>This is not original. I copied and pasted. I am a cheater and thief. However, this is the best place for things.</p>  
   </article>
   
-  <aside class="aside aside-1">
+  <aside class="menu">
   Menu Choice
-  <ul style="list-style: none">
+  <ul>
     <li>Chicken</li>
     <li>Beef</li>
     <li>Human</li>
   </ul>
   </aside>
-  <aside class="aside aside-2">Menu Choice</aside>
+  <aside class="other">Other</aside>
   
   <footer class="footer">Food may contain GMO or posoin</footer>
 
