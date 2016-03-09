@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Playing Cards</title>
+
+	<style>
+		.playing-card {
+			position: relative;
+			width: 200px;
+			height: 300px;
+			display: inline-block;
+			padding: 20px;
+			cursor: pointer;
+		}
+
+		.playing-card::before {
+			content: '';
+			display: block;
+			/*start background shamelessly stolen from interwebs https://lea.verou.me/css3patterns/#japanese-cube*/
+			background-color:#556;
+			background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+			linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+			linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+			linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+			linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), 
+			linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+			background-size:80px 140px;
+			background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+			/*end stolen background*/
+		}
+		
+		.playing-card::before,
+		.playing-card .card-front {
+			width: 200px;
+			height: 300px;
+			border-radius: 8px;
+			transition: 1s all;
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+		}
+
+
+		.card-front {
+			background: #f2f2f2;
+			position: relative;
+			font-size: 42px;
+			text-align: center;
+			padding: 80px 20px 20px;
+			box-sizing: border-box;
+			transform: rotatey(-180deg);
+			color: #444;
+		}
+
+		.card-front[data-card^="A"],
+		.card-front[data-card^="K"],
+		.card-front[data-card^="Q"],
+		.card-front[data-card^="J"] {
+			font-size: 100px;
+			padding-top: 70px;
+		}
+
+		.card-front[data-card^="A"] {
+			padding-top: 95px;
+		}
+
+		.card-front[data-card^="2"],
+		.card-front[data-card^="3"],
+		.card-front[data-card^="4"] {
+			font-size: 60px;
+			padding-top: 80px;
+		}
+
+		.card-front[data-card^="2"] {
+			padding-top: 110px;
+		}
+
+		.card-front[data-card^="5"],
+		.card-front[data-card^="6"] {
+			font-size: 55px;
+			padding-top: 90px;
+		}
+
+		.card-front[data-card^="7"],
+		.card-front[data-card^="8"],
+		.card-front[data-card^="9"] {
+			font-size: 45px;
+			padding-top: 70px;
+		}
+
+		.playing-card.flipped::before {
+			 transform: rotatey(-180deg);
+		}
+
+		.playing-card.flipped .card-front {
+			 transform: rotatey(0deg);
+		}
+
+		.card-front.hearts,
+		.card-front.diams {
+			color: firebrick;
+		}
+		.card-front::before,
+		.card-front::after {
+			content: attr(data-card);
+			font-size: 30px;
+			position: absolute;
+			padding: 10px;
+		}
+		.card-front::before {
+			top: 0;
+			left: 0;
+		}
+
+		.card-front::after {
+			bottom: 0;
+			right: 0;
+			transform: rotate(180deg);
+		}
+	</style>
+</head>
+<body>
+	<h3>Click the cards. Do it!</h3>
+	<div id="deck"></div>
+
+	<script id="card-template" type="text/x-handlebars">
+		{{#each this}}
+			<div class="playing-card">
+				<div class="card-front {{suit}}" data-card="{{number}} &{{suit}};">{{cardDisplay number suit}}</div>
+			</div>
+		{{/each}}
+	</script>
+
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+	<script>
+		(function() {
+			Handlebars.registerHelper('cardDisplay', function(number, suit) {
+				var display = '';
+				switch(number) {
+					case 'A':
+						display = '&' + suit + ';';
+						break;
+					case 'K':
+						display = '&#9818;';
+						break;
+					case 'Q':
+						display = '&#9819;';
+						break;
+					case 'J':
+						display = '&#9733;';
+						break;
+					default:
+						number = parseInt(number);
+						for(var i = 0; i < number; i++) {
+							display += '&' + suit + '; ';
+						} 
+				}
+
+				return new Handlebars.SafeString(display);
+			});
+			var playingCards = {
+				init: function() {
+					var suits = ['hearts', 'diams', 'clubs', 'spades'];
+					var numbers = ['A', 'K', 'Q', 'J', 10, 9, 8, 7, 6, 5, 4, 3, 2];
+					var cards = [];
+					suits.forEach(function(suit){
+						numbers.forEach(function(number) {
+							cards.push({
+								suit: suit,
+								number: number
+							});
+						});
+					});
+					cards = this.shuffle(cards);
+					this.render(cards);
+
+					$('.playing-card').on('click', function() {
+						$(this).toggleClass('flipped');
+					});
+				},
+
+				render: function(cards) {
+					var template = Handlebars.compile(document.getElementById('card-template').innerHTML);
+					document.getElementById('deck').innerHTML = template(cards);
+				},
+
+				// shuffle function stolen from the interwebs: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+				shuffle: function(cards) {
+					var currentIndex = cards.length;
+					var temporaryValue;
+					var randomIndex;
+
+					// While there remain cards to shuffle...
+					while (0 !== currentIndex) {
+						// Pick a remaining element...
+						randomIndex = Math.floor(Math.random() * currentIndex);
+						currentIndex -= 1;
+
+						// And swap it with the current element.
+						temporaryValue = cards[currentIndex];
+						cards[currentIndex] = cards[randomIndex];
+						cards[randomIndex] = temporaryValue;
+					}
+
+					return cards;
+				}
+			};
+
+			playingCards.init();
+		})();
+	</script>
+</body>
+</html>
