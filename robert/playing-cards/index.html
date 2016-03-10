@@ -62,10 +62,13 @@
 			flex: 1;
 		}
 
+		.card-front[data-card^="J"] {
+			font-size: 200px;
+		}
+
 		.card-front[data-card^="A"],
 		.card-front[data-card^="K"],
-		.card-front[data-card^="Q"],
-		.card-front[data-card^="J"] {
+		.card-front[data-card^="Q"] {
 			font-size: 100px;
 		}
 
@@ -120,10 +123,9 @@
 <body>
 	<h3>Click the cards. Do it!</h3>
 	<div id="deck"></div>
-
 	<script id="card-template" type="text/x-handlebars">
 		{{#each this}}
-			<div class="playing-card">
+			<div class="playing-card flipped">
 				<div class="card-front {{suit}}" data-card="{{number}} &{{suit}};">
 					<span>{{cardDisplay number suit}}<span>
 				</div>
@@ -148,7 +150,7 @@
 						display = '&#9819;';
 						break;
 					case 'J':
-						display = '&#9733;';
+						display = '&#9876;';
 						break;
 					default:
 						number = parseInt(number);
