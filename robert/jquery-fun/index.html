@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.my-button {
+			font-size: 80px;
+			cursor: grab;
+			cursor: -webkit-grab;
+		}
+		.my-button.clicked {
+			background: navy;
+			color: navajowhite;
+			cursor: grabbing;
+			cursor: -webkit-grabbing;
+
+		}
+	</style>
+</head>
+<body>
+	<button class="my-button clicked">I was clicked</button>
+	<button class="my-button">Click Me</button>
+	<button class="my-button">Click Me</button>
+	<button class="my-button">Click Me</button>
+	<button class="my-button">Click Me</button>
+	<button class="my-button">Click Me</button>
+	<button class="my-button">Click Me</button>
+
+
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).on('ready', function() {
+			var myButton = $('button');
+			myButton.on('click', function(e) {
+				var button = $(this);
+				if (button.hasClass('clicked')) {
+					button.html('Click Me').removeClass('clicked');
+				} else {
+					button.html('I was clicked').addClass('clicked');
+				}
+			});
+		});
+	</script>
+</body>
+</html>
