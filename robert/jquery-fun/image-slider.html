@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+
+		.image-slider {
+			position: relative;
+			width: 400px;
+			height: 300px;
+			margin: 0 auto;
+			overflow: hidden;
+			border: 1px solid red;
+		}
+
+		.image-slider ul {
+			margin: 0;
+			padding: 0;
+		}
+
+		.image-slider li {
+			font-size: 40px;
+			position: absolute;
+			left: -100%;
+			transition: all 0.3s;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			z-index: 1;
+		}
+
+		.image-slider .current {
+			color: firebrick;
+			display: block;
+			left: 0;
+			z-index: 2;
+		}
+
+		.image-slider .next {
+			color: rebeccapurple;
+		}
+
+		.image-slider .previous {
+			color: forestgreen;
+			left: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="image-slider">
+		<ul>
+			<li class="current"><img src="http://lorempixel.com/400/300/cats/1/"></li>
+			<li class="next"><img src="http://lorempixel.com/400/300/cats/2/"></li>
+			<li><img src="http://lorempixel.com/400/300/cats/3/"></li>
+			<li class="previous"><img src="http://lorempixel.com/400/300/cats/4/"></li>
+		</ul>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).on('ready', function() {
+			setInterval(function(){
+				var current = $('.current');
+				var next = $('.next');
+				var previous = $('.previous');
+
+				current.removeClass('current').addClass('previous');
+				next.removeClass('next').addClass('current');
+				previous.removeClass('previous');
+
+				if (next.is(':last-child')) {
+					$('.image-slider li:first-child').addClass('next');
+				} else {
+					next.next().addClass('next');
+				}
+			}, 2000);
+		});
+	</script>
+</body>
+</html>
