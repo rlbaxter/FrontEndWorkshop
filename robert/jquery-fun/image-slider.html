@@ -48,6 +48,25 @@
 			color: forestgreen;
 			left: 100%;
 		}
+
+		.image-slider .next-button {
+			font-size: 20px;
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			background-color: red;
+			color: white;
+			border-radius: 50%;
+			appearance: none;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			box-shadow: none;
+			outline: 0;
+			border: 0;
+			z-index: 3;
+			height: 32px;
+			margin-top: -16px;
+		}
 	</style>
 </head>
 <body>
@@ -59,13 +78,33 @@
 			<li><img src="http://lorempixel.com/400/300/cats/3/"></li>
 			<li class="previous"><img src="http://lorempixel.com/400/300/cats/4/"></li>
 		</ul>
+		<button class="next-button">&#8594;</button>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
 
 	<script>
-		$(document).on('ready', function() {
-			setInterval(function(){
+		var imageSlider = {
+			init: function() {
+				var self = this;
+				self.startTimer();
+				$( '.next-button' ).on( 'click', function() {
+					self.goForward();
+					self.stopTimer().startTimer();
+				});
+			},
+
+			startTimer: function() {
+				this.timer = setInterval(this.goForward, 5000);
+				return this;
+			},
+
+			stopTimer: function() {
+				clearInterval(this.timer);
+				return this;
+			},
+
+			goForward: function() {
 				var current = $('.current');
 				var next = $('.next');
 				var previous = $('.previous');
@@ -79,8 +118,13 @@
 				} else {
 					next.next().addClass('next');
 				}
-			}, 2000);
+			}
+		};
+
+		$(document).on('ready', function() {
+			imageSlider.init();
 		});
+
 	</script>
 </body>
 </html>
